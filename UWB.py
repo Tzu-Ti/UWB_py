@@ -10,8 +10,8 @@ class UWB():
     print("Connected to", self.DWM.name)
     
     self.ax, self.ay = [0, 0]
-    self.bx, self.by = [160, 0]
-    self.cx, self.cy = [80, 160]
+    self.bx, self.by = [300, 214]
+    self.cx, self.cy = [0, 428]
     self.alldistance = [None for n in range(3)]
     
     # Start calculate distance

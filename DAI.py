@@ -25,18 +25,21 @@ def end():
     car1_uwb.end()
 atexit.register(end)
 
-t = threading.Thread(target=car1_uwb.distance)
+t = threading.Thread(target=car1_uwb.distance, daemon=True)
 t.start()
 
+prev_d1 = car1_uwb.alldistance[0]
 while True:
     try:
-        time.sleep(1)
+        d1 = car1_uwb.alldistance[0]
+        if prev_d1 == d1:
+            continue
         rX, rY = car1_uwb.triposition()
         rX, rY = [round(float(rX), 3), round(float(rY), 3)]
         print(rX, rY)
         IDF_data = [rX, rY]
         DAN.push ('Position_Sensor', IDF_data) #Push data to an input device feature "Dummy_Sensor"
-
+        prev_d1 = d1
         #==================================
 
         # ODF_data = DAN.pull('Dummy_Control')#Pull data from an output device feature "Dummy_Control"
